@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Did the Rudy Gay trade help the Grizzlies? 2012–13 report</title>
+  <meta name="description" content="How much did the Grizzlies’ win percentage improve after they traded Rudy Gay in January 2013? All 82 regular-season games, Oct 31, 2012 to Apr 17, 2013.">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="nav" aria-label="Main">
+    <div class="nav-inner">
+      <span class="brand">Grizzlies 2012–13 · The Rudy Gay trade</span>
+      <ul>
+        <li><a href="index.html" aria-current="page">Report</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <div id="load-error" class="error" hidden></div>
+
+    <h1>
+      How much did the Grizzlies’ win percentage improve after they traded Rudy Gay in January 2013?
+      <span class="sub">Counting all 82 regular-season games, October 31, 2012 to April 17, 2013</span>
+    </h1>
+    <p class="byline">By Your Name</p>
+
+    <p class="lead">
+      The Grizzlies’ win percentage rose from <strong><span data-bind="beforePct">…</span></strong> before the Rudy Gay trade to
+      <strong><span data-bind="afterPct">…</span></strong> after it, a gain of <strong><span data-bind="winChangeAbs">…</span> percentage points</strong>.
+      That is a modest improvement, not a rescue: the team was already <span data-bind="beforeRecord">…</span> when the trade happened,
+      it won only about <span data-bind="excessWins">…</span> more games over the next <span data-bind="afterN">…</span> than its earlier pace would predict,
+      and all of the improvement came at home.
+      <strong>Recommendation:</strong> if a friend says the trade “saved” the season, say it helped a little, and don’t judge it
+      from one <span data-bind="afterN">…</span>-game stretch in one season.
+    </p>
+
+    <h2>The four numbers</h2>
+    <div class="stats">
+      <div class="stat">
+        <div class="label">Win % before the trade</div>
+        <div class="value" data-bind="beforePct">…</div>
+        <div class="sub"><span data-bind="beforeRecord"></span> in <span data-bind="beforeN"></span> games<br><span data-bind="beforeRange"></span></div>
+      </div>
+      <div class="stat">
+        <div class="label">Win % after the trade</div>
+        <div class="value" data-bind="afterPct">…</div>
+        <div class="sub"><span data-bind="afterRecord"></span> in <span data-bind="afterN"></span> games<br><span data-bind="afterRange"></span></div>
+      </div>
+      <div class="stat">
+        <div class="label">Change in win %</div>
+        <div class="value"><span data-bind="winChange">…</span> pts</div>
+        <div class="sub">After minus before, in percentage points</div>
+      </div>
+      <div class="stat">
+        <div class="label">Change in average point margin</div>
+        <div class="value"><span data-bind="marginChange">…</span> pts</div>
+        <div class="sub">Per game, from <span data-bind="beforeMargin"></span> to <span data-bind="afterMargin"></span></div>
+      </div>
+    </div>
+    <p class="note">Changes are computed from unrounded values, so they can differ by 0.1 from the difference between the two rounded numbers shown.
+      Try your own cut of these numbers on the <a href="dashboard.html">interactive dashboard</a>.</p>
+
+    <figure class="chart-box">
+      <div class="chart" id="chart-season"></div>
+      <figcaption>The season at a glance: running wins minus losses after each game. The dashed line marks the trade.</figcaption>
+    </figure>
+
+    <h2>Finding 1: The win percentage rose <span data-bind="winChangeAbs">…</span> points after the trade</h2>
+    <p>
+      Before the trade the Grizzlies were <span data-bind="beforeRecord">…</span> (<span data-bind="beforePct">…</span>) in <span data-bind="beforeN">…</span> games.
+      From January 30 on they were <span data-bind="afterRecord">…</span> (<span data-bind="afterPct">…</span>) in <span data-bind="afterN">…</span> games.
+      At the earlier win rate, <span data-bind="afterN">…</span> games would produce about <span data-bind="expectedWins">…</span> wins; they won <span data-bind="actualWins">…</span>,
+      roughly <span data-bind="excessWins">…</span> more. Stretched over a full 82-game season, the two rates equal about
+      <span data-bind="paceBefore">…</span> wins and <span data-bind="paceAfter">…</span> wins. That stretch is only an illustration, not a prediction.
+    </p>
+    <figure class="chart-box">
+      <div class="chart" id="chart-win"></div>
+      <figcaption>Win percentage before and after the trade, with each record.</figcaption>
+    </figure>
+
+    <h2>Finding 2: The average scoring margin moved only <span data-bind="marginChangeAbs">…</span> points</h2>
+    <p>
+      Points scored per game were <span data-bind="beforePF">…</span> before the trade and <span data-bind="afterPF">…</span> after.
+      Points allowed went from <span data-bind="beforePA">…</span> to <span data-bind="afterPA">…</span>.
+      The average margin (points scored minus points allowed) went from <span data-bind="beforeMargin">…</span> to <span data-bind="afterMargin">…</span>.
+      The team won more often without scoring more and while defending only slightly better. With just <span data-bind="afterN">…</span> games after the trade,
+      each single game is worth about <span data-bind="onePct">…</span> points of win percentage, so a few close results either way can move it by several points.
+    </p>
+    <figure class="chart-box">
+      <div class="chart" id="chart-points"></div>
+      <figcaption>Average points scored and allowed per game, before and after the trade (axis starts at zero).</figcaption>
+    </figure>
+
+    <h2>Finding 3: All of the improvement came at home, where the win rate went from <span data-bind="homeBeforePct">…</span> to <span data-bind="homeAfterPct">…</span></h2>
+    <p>
+      At home the team went from <span data-bind="homeBeforeRec">…</span> (<span data-bind="homeBeforePct">…</span>) to <span data-bind="homeAfterRec">…</span>
+      (<span data-bind="homeAfterPct">…</span>), up <span data-bind="homeChangeAbs">…</span> points. On the road it went from
+      <span data-bind="awayBeforeRec">…</span> (<span data-bind="awayBeforePct">…</span>) to <span data-bind="awayAfterRec">…</span>
+      (<span data-bind="awayAfterPct">…</span>), down <span data-bind="awayChangeAbs">…</span> points. The schedule did not hand the team extra home games after
+      the trade: <span data-bind="homeShareBefore">…</span> of the games before it were at home, and <span data-bind="homeShareAfter">…</span> after it.
+    </p>
+    <figure class="chart-box">
+      <div class="chart" id="chart-venue"></div>
+      <figcaption>Win percentage at home and on the road, before and after the trade, with each record.</figcaption>
+    </figure>
+
+    <section class="method" id="data">
+      <h2>Where the data come from and how the numbers are computed</h2>
+      <dl>
+        <dt>Source</dt>
+        <dd>The game log is the Memphis Grizzlies 2012–13 regular-season schedule and results, as published by
+          <a href="https://www.basketball-reference.com/">Basketball-Reference.com</a>, saved as <code>games.csv</code> in this site’s repository.
+          The trade date, January 30, 2013, comes from news reports of the three-team deal with Toronto and Detroit, such as
+          <a href="https://www.si.com/nba/2013/01/30/rudy-gay-memphis-grizzlies-toronto-raptors-detroit-pistons">Sports Illustrated’s report</a>.</dd>
+
+        <dt>What one row is</dt>
+        <dd>One regular-season game played by the Grizzlies, with its date, venue (home or away), opponent, result, and both teams’ points.
+          A game is <strong>Before</strong> if it was played before January 30, 2013 (games 1–44, through January 28) and <strong>After</strong> if it was played on
+          or after that date (games 45–82, from January 31). No game was played on January 29 or 30.</dd>
+
+        <dt>Rows dropped</dt>
+        <dd>None. The file has <span data-bind="rowsRead">…</span> rows and <span data-bind="rowsUsed">…</span> are used, so <span data-bind="rowsDropped">…</span> were dropped.
+          A row would be dropped only if it lacked a valid date, a win or loss result, a home or away label, an opponent, or either team’s points.
+          Playoff games are not in the file. The one October game (October 31, a loss) is counted in the Before period.</dd>
+
+        <dt>How each summary number is computed</dt>
+        <dd>
+          <ul>
+            <li><strong>Win % before the trade</strong> = wins ÷ games, for Before games.</li>
+            <li><strong>Win % after the trade</strong> = wins ÷ games, for After games.</li>
+            <li><strong>Change in win %</strong> = (win % after − win % before) × 100, in percentage points.</li>
+            <li><strong>Change in average point margin</strong> = average of (Grizzlies points − opponent points) over After games, minus the same average over Before games.</li>
+          </ul>
+        </dd>
+
+        <dt>What this data cannot tell you</dt>
+        <dd>The file has no player information, so it cannot separate Rudy Gay’s departure from the other changes that came with the trade, or from injuries, rest, and the strength of
+          the opponents faced. Each period is a different length (<span data-bind="beforeN">…</span> and <span data-bind="afterN">…</span> games), so the report compares rates, not totals.
+          Read it as “the team did better after the trade,” not “the trade caused it.”</dd>
+      </dl>
+    </section>
+  </main>
+
+  <footer>Grizzlies 2012–13 · The Rudy Gay trade · built with plain HTML, CSS, and JavaScript · <a href="dashboard.html">Open the dashboard</a></footer>
+
+  <script src="app.js"></script>
+  <script src="report.js"></script>
+</body>
+</html>
