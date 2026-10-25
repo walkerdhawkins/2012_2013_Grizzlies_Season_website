@@ -60,4 +60,4 @@ then open <http://localhost:8000>.
 
 ## Author
 
-Your Name
+Walker Hawkins
