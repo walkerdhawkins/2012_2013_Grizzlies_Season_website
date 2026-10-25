@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard: Grizzlies before and after the Rudy Gay trade</title>
+  <meta name="description" content="Interactive dashboard: filter the Grizzlies’ 82 games in 2012–13 and compare win percentage before and after the Rudy Gay trade.">
+  <link rel="icon" href="data:,">
+  <script>
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem("theme"); } catch (e) {}
+      if (t !== "dark" && t !== "light") {
+        t = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      document.documentElement.setAttribute("data-theme", t);
+      document.documentElement.className += " js";
+    })();
+  </script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="nav" aria-label="Main">
+    <div class="nav-inner">
+      <span class="brand">Grizzlies 2012–13 · The Rudy Gay trade</span>
+      <ul>
+        <li><a href="index.html">Report</a></li>
+        <li><a href="dashboard.html" aria-current="page">Dashboard</a></li>
+        <li><button type="button" id="theme-toggle" class="theme-toggle" role="switch" aria-checked="false"><span class="knob" aria-hidden="true"></span>Dark mode</button></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="wide">
+    <div id="load-error" class="error" hidden></div>
+
+    <h1>
+      Dashboard: how much did the Grizzlies’ win percentage improve after the Rudy Gay trade?
+      <span class="sub">One row = one regular-season game · 82 games · October 31, 2012 to April 17, 2013. “After” means played on or after January 30, 2013.</span>
+    </h1>
+
+    <div class="quick" id="quick" role="group" aria-label="Quick periods">
+      <span class="qlabel">Quick periods:</span>
+    </div>
+
+    <section class="filters" aria-label="Filters">
+      <div class="field">
+        <label for="f-from">From date</label>
+        <input type="date" id="f-from">
+      </div>
+      <div class="field">
+        <label for="f-to">To date</label>
+        <input type="date" id="f-to">
+      </div>
+      <div class="field">
+        <label for="f-venue">Home or away</label>
+        <select id="f-venue">
+          <option value="All">All games</option>
+          <option value="Home">Home games</option>
+          <option value="Away">Away games</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="f-opp">Opponent</label>
+        <select id="f-opp"><option value="All">All opponents</option></select>
+      </div>
+      <div class="field">
+        <label for="f-measure">Measure shown in the charts</label>
+        <select id="f-measure">
+          <option value="winPct">Win %</option>
+          <option value="margin">Average point margin</option>
+          <option value="pf">Points scored per game</option>
+          <option value="pa">Points allowed per game</option>
+        </select>
+      </div>
+      <div class="field actions">
+        <button type="button" id="reset">Reset filters</button>
+        <button type="button" id="copy-link" class="secondary">Copy link to this view</button>
+      </div>
+    </section>
+    <p id="status" aria-live="polite"></p>
+
+    <div class="stats" aria-label="Four summary numbers">
+      <div class="stat">
+        <div class="label">Win % before the trade</div>
+        <div class="value" id="s-before">…</div>
+        <div class="sub" id="s-before-sub"></div>
+      </div>
+      <div class="stat">
+        <div class="label">Win % after the trade</div>
+        <div class="value" id="s-after">…</div>
+        <div class="sub" id="s-after-sub"></div>
+      </div>
+      <div class="stat">
+        <div class="label">Change in win %</div>
+        <div class="value" id="s-change">…</div>
+        <div class="sub">After minus before, in percentage points</div>
+      </div>
+      <div class="stat">
+        <div class="label">Change in average point margin</div>
+        <div class="value" id="s-margin">…</div>
+        <div class="sub" id="s-margin-sub"></div>
+      </div>
+    </div>
+
+    <div class="charts">
+      <section class="panel">
+        <h3 id="t-period">Before vs. after the trade</h3>
+        <div class="chart" id="chart-period"></div>
+      </section>
+      <section class="panel">
+        <h3 id="t-venue">Home vs. road, before and after</h3>
+        <div class="chart" id="chart-venue"></div>
+      </section>
+      <section class="panel full">
+        <h3>Running wins minus losses for the games in view</h3>
+        <div class="chart" id="chart-line"></div>
+      </section>
+      <section class="panel full">
+        <h3>Where the opponents are: record against each team in the current view</h3>
+        <div id="map" role="region" aria-label="Map of opponent cities, colored by the Grizzlies’ record against each team in the current view"></div>
+        <div class="map-key" id="map-key">
+          <span><span class="dot" style="background:#1f5fbf"></span>Won every game in view</span>
+          <span><span class="dot" style="background:#aab1bb"></span>Split</span>
+          <span><span class="dot" style="background:#d1603d"></span>Lost every game in view</span>
+          <span><span class="dot hollow"></span>No games in view</span>
+          <span><span class="dot home"></span>Memphis</span>
+        </div>
+        <p class="note" id="map-note">Click a circle to open that team’s spotlight below.</p>
+      </section>
+    </div>
+
+    <h2>Team spotlight</h2>
+    <p class="note">Search for an opponent to see its own history against the season-long line. The card uses all games, whatever the filters above say.</p>
+    <div class="field combo">
+      <label for="team-search">Search opponents</label>
+      <input type="text" id="team-search" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="team-list" autocomplete="off" placeholder="Try “Lakers” or “Utah”">
+      <ul id="team-list" role="listbox" aria-label="Matching opponents" hidden></ul>
+    </div>
+    <div id="spotlight" class="spotlight" hidden></div>
+
+    <h2>The games behind the current view</h2>
+    <div class="table-wrap">
+      <table id="games-table">
+        <thead>
+          <tr>
+            <th class="num">Game</th><th>Date</th><th>Venue</th><th>Opponent</th><th>Result</th><th>Score (GRZ–Opp)</th><th class="num">Margin</th><th>Period</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="note">Definitions are the same as on the <a href="index.html#data">report</a>: win % = wins ÷ games, average point margin = average of (Grizzlies points − opponent points),
+      and each change is After minus Before. A change shows “n/a” when a filter leaves no games in one of the two periods.</p>
+  </main>
+
+  <footer>Grizzlies 2012–13 · The Rudy Gay trade · built with plain HTML, CSS, and JavaScript · map by <a href="https://leafletjs.com/">Leaflet</a> with © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors · <a href="index.html">Back to the report</a></footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="app.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>
