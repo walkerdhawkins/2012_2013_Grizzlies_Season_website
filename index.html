@@ -160,7 +160,22 @@
           the opponents faced. Each period is a different length (<span data-bind="beforeN">…</span> and <span data-bind="afterN">…</span> games), so the report compares rates, not totals.
           Read it as “the team did better after the trade,” not “the trade caused it.”</dd>
       </dl>
-    </section>
+    <h3>Do the website and Tableau agree?</h3>
+<p>Both builds count the same 82 games with every filter at its default.</p>
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr><th>Summary number</th><th>Website</th><th>Tableau</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Win % before the trade</td><td>65.9%</td><td>65.9%</td></tr>
+      <tr><td>Win % after the trade</td><td>71.1%</td><td>71.1%</td></tr>
+      <tr><td>Change in win %</td><td>+5.1 pts</td><td>+5.1 pts</td></tr>
+      <tr><td>Change in average point margin</td><td>+0.5 pts</td><td>+0.5 pts</td></tr>
+    </tbody>
+  </table>
+</div>
+<p>All four numbers match. <a href="https://public.tableau.com/app/profile/walker.hawkins/viz/RudyGayTradeEffectonthe2012-2013Grizzlies/RudyGayTradeAffect">See the Tableau Public dashboard</a>.</p></section>
   </main>
 
   <footer>Grizzlies 2012–13 · The Rudy Gay trade · built with plain HTML, CSS, and JavaScript · <a href="dashboard.html">Open the dashboard</a></footer>
